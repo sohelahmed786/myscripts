@@ -1,0 +1,15 @@
+#echo "enter value"
+#read x
+#printf " you entered: %d\n" $x
+#set $a = 10
+#set $b = 5
+let a=20
+let b=10
+x=`echo $a \* $b + $b -$a | bc`
+echo "x is " $x
+y=`echo $a / $b | bc`
+echo "y is " $y
+z=`echo $a % $b | bc`
+echo "z is " $z
+
+
