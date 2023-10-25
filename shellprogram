@@ -13,3 +13,6 @@ z=`echo $a % $b | bc`
 echo "z is " $z
 
 
+Here is a shortened 3-4 line response:
+
+"Our organization ingests array data including network traffic, endpoint telemetry, authentication logs, and cloud service events into our SIEM. By performing behavioral analytics on this data, we are able to detect anomalies and derive security insights that drive continuous improvements to detection accuracy, reduce false positives, and inform new product security capabilities for hardening and threat response."
