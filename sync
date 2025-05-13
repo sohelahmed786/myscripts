@@ -1,27 +1,57 @@
-Certainly! Here’s a detailed entry for **Email Address Disclosed in Response**, following your requested format:
+Thank you for clarifying that the vulnerability exists on an **internal network**.  
+Let’s tailor the details and adjust the severities accordingly.
+
+### How does “internal only” affect impact and severity?
+
+- **Directory Listing**: Still a security concern, but risk is limited to those with internal access. Typically, this would reduce severity compared to an internet-facing scenario.
+- **Sensitive Data Exposure (Emirates ID)**: The exposure of personal identification is still serious, even internally, because it can lead to insider threats, privacy violations, and possible regulatory non-compliance. Severity is typically **high** unless strong compensating controls are in place.
 
 ---
 
-#### **Finding #5: Email Address Disclosure in HTTP Response**
+#### **Finding #6: Directory Listing Enabled (Internal Network)**
 
 - **Vulnerability Name:**  
-  Disclosure of Sensitive Information – Email Address in Response
+  Insecure Directory Listing Enabled (Internal Scope)
 
 - **Severity:**  
-  Low
+  Low to Medium  
+  *(Generally Medium on internal systems, but may be considered Low if strong access controls exist and only trusted personnel have access)*
 
 - **Threat Type:**  
-  Information Disclosure
+  Information Disclosure / Server Misconfiguration
 
 - **Description:**  
-  The application returns user email addresses in its HTTP responses, either within the response body, headers, or error messages. This information may be visible to anyone with access to the response, including unauthorized users or attackers probing the application.
+  The web server on the internal network is configured with directory listing enabled, allowing authenticated (internal) users to browse and enumerate files within certain directories. This could aid malicious insiders or users with excessive permissions in exploring server contents and identifying sensitive files.
 
 - **Impact:**  
-  Disclosing email addresses increases the risk of targeted phishing, spam, social engineering attacks, and user enumeration. Attackers can collect these email addresses to launch further attacks against users or compromise their accounts on this or other platforms.
+  Internal users could discover files not intended for their access, including configurations, backup archives, or sensitive documents, increasing the risk of data exfiltration or misuse of information.
 
 - **Proposed Remediation:**  
-  Review and update the application logic to avoid including sensitive user details, such as email addresses, in HTTP responses unless strictly necessary and explicitly authorized. Return only the minimum required information to users and implement access controls to restrict sensitive data exposure. Consider data masking or anonymization for responses when appropriate.
+  Disable directory listing via server settings. Implement access controls to ensure only authorized personnel can access sensitive directories or files, even internally.
 
 ---
 
-Let me know if you want this tailored for a specific endpoint, UI context, or if you need related remediation details!
+#### **Finding #7: Exposure of Emirates ID Card via Directory Listing (Internal Network)**
+
+- **Vulnerability Name:**  
+  Sensitive Data Exposure – Emirates ID Card (Internal Scope)
+
+- **Severity:**  
+  High  
+  *(Still High internally, as sensitive PII is exposed, which can result in regulatory penalties and insider abuse)*
+
+- **Threat Type:**  
+  Sensitive Information Disclosure / Privacy Violation
+
+- **Description:**  
+  A file containing a user’s Emirates ID card is accessible through the exposed directory listing on the internal web server. Even though the exposure is internal, this document contains highly sensitive personal information that should be tightly protected, in compliance with privacy laws and organizational policy.
+
+- **Impact:**  
+  Unrestricted internal access to sensitive identity documents could result in unauthorized viewing, data leakage, privacy violations, and potential misuse by employees or contractors. Organizations may face regulatory scrutiny or reputational damage, even if exposure did not reach the public internet.
+
+- **Proposed Remediation:**  
+  Immediately remove sensitive documents like Emirates ID cards from accessible directories. Store such information in secured, access-controlled repositories, with auditing and monitoring for sensitive data access, regardless of network exposure.
+
+---
+
+Let me know if you want more tailoring for your specific risk appetite, compensating controls, or for inclusion of references to regulations or company policies!
