@@ -1,57 +1,28 @@
-Thank you for clarifying that the vulnerability exists on an **internal network**.  
-Let’s tailor the details and adjust the severities accordingly.
-
-### How does “internal only” affect impact and severity?
-
-- **Directory Listing**: Still a security concern, but risk is limited to those with internal access. Typically, this would reduce severity compared to an internet-facing scenario.
-- **Sensitive Data Exposure (Emirates ID)**: The exposure of personal identification is still serious, even internally, because it can lead to insider threats, privacy violations, and possible regulatory non-compliance. Severity is typically **high** unless strong compensating controls are in place.
+Absolutely! Here’s the vulnerability entry for **Clickjacking**, tailored for an internal network scenario and using your requested format:
 
 ---
 
-#### **Finding #6: Directory Listing Enabled (Internal Network)**
+#### **Finding #8: Clickjacking Vulnerability (Internal Network)**
 
 - **Vulnerability Name:**  
-  Insecure Directory Listing Enabled (Internal Scope)
+  Missing Clickjacking Protection (X-Frame-Options / CSP)
 
 - **Severity:**  
-  Low to Medium  
-  *(Generally Medium on internal systems, but may be considered Low if strong access controls exist and only trusted personnel have access)*
+  Medium  
+  *(On internal systems, typically Medium severity unless the application handles highly sensitive data, in which case it may be higher.)*
 
 - **Threat Type:**  
-  Information Disclosure / Server Misconfiguration
+  UI Redressing / Clickjacking
 
 - **Description:**  
-  The web server on the internal network is configured with directory listing enabled, allowing authenticated (internal) users to browse and enumerate files within certain directories. This could aid malicious insiders or users with excessive permissions in exploring server contents and identifying sensitive files.
+  The web application does not implement the `X-Frame-Options` HTTP response header or Content Security Policy (CSP) frame-ancestors directive. This omission allows the application to be embedded within an iframe on another site, making it vulnerable to clickjacking attacks. An attacker on the internal network could trick users into performing undesired actions by overlaying the application within a hidden frame.
 
 - **Impact:**  
-  Internal users could discover files not intended for their access, including configurations, backup archives, or sensitive documents, increasing the risk of data exfiltration or misuse of information.
+  A successful clickjacking attack could allow a malicious internal user to manipulate staff into unintentionally authorizing transactions, changing settings, or disclosing sensitive information, depending on the application's functionality. Even in internal environments, this can undermine data integrity and trust.
 
 - **Proposed Remediation:**  
-  Disable directory listing via server settings. Implement access controls to ensure only authorized personnel can access sensitive directories or files, even internally.
+  Set the `X-Frame-Options` header to `DENY` or `SAMEORIGIN`, or implement a suitable CSP with the `frame-ancestors` directive to restrict which sites can embed the application in a frame. Regularly review these settings to ensure ongoing protection against UI redressing threats.
 
 ---
 
-#### **Finding #7: Exposure of Emirates ID Card via Directory Listing (Internal Network)**
-
-- **Vulnerability Name:**  
-  Sensitive Data Exposure – Emirates ID Card (Internal Scope)
-
-- **Severity:**  
-  High  
-  *(Still High internally, as sensitive PII is exposed, which can result in regulatory penalties and insider abuse)*
-
-- **Threat Type:**  
-  Sensitive Information Disclosure / Privacy Violation
-
-- **Description:**  
-  A file containing a user’s Emirates ID card is accessible through the exposed directory listing on the internal web server. Even though the exposure is internal, this document contains highly sensitive personal information that should be tightly protected, in compliance with privacy laws and organizational policy.
-
-- **Impact:**  
-  Unrestricted internal access to sensitive identity documents could result in unauthorized viewing, data leakage, privacy violations, and potential misuse by employees or contractors. Organizations may face regulatory scrutiny or reputational damage, even if exposure did not reach the public internet.
-
-- **Proposed Remediation:**  
-  Immediately remove sensitive documents like Emirates ID cards from accessible directories. Store such information in secured, access-controlled repositories, with auditing and monitoring for sensitive data access, regardless of network exposure.
-
----
-
-Let me know if you want more tailoring for your specific risk appetite, compensating controls, or for inclusion of references to regulations or company policies!
+Let me know if you'd like additional technical detail, example configuration for your server, or a demonstration/evidence template!
