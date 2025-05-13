@@ -1,27 +1,27 @@
-Certainly! Here’s a detailed entry for a **Missing HSTS Security Header** vulnerability, using your requested format:
+Certainly! Here’s a detailed entry for a **Vulnerable JavaScript Dependency: Select2 v4.0.3 (CVE-2016-10744)**, using your specified reporting format:
 
 ---
 
-#### **Finding #3: Missing HTTP Strict Transport Security (HSTS) Header**
+#### **Finding #4: Vulnerable JavaScript Dependency - Select2 v4.0.3**
 
 - **Vulnerability Name:**  
-  HTTP Strict Transport Security (HSTS) Header Missing
+  Outdated Select2 Version – CVE-2016-10744
 
 - **Severity:**  
-  Medium
+  High
 
 - **Threat Type:**  
-  Security Misconfiguration / Transport Layer Protection
+  Vulnerable Third-Party Component / Cross-Site Scripting (XSS)
 
 - **Description:**  
-  The application does not set the `Strict-Transport-Security` HTTP response header. HSTS is a security feature that instructs browsers to only interact with the site over HTTPS, protecting users from certain types of attacks, such as protocol downgrade attacks and cookie hijacking via man-in-the-middle attacks.
+  The application includes Select2 JavaScript library version 4.0.3, which is affected by a known vulnerability (CVE-2016-10744). This vulnerability allows remote attackers to inject arbitrary web scripts or HTML via specific user-controlled input, which can be executed in the context of another user's browser session.
 
 - **Impact:**  
-  Without HSTS, users may unintentionally access the application over insecure HTTP, exposing them to man-in-the-middle attacks where an attacker could intercept or manipulate traffic. The absence of this header weakens the browser’s ability to enforce secure connections, putting user credentials and session data at risk.
+  Exploitation of this vulnerability could enable an attacker to perform cross-site scripting (XSS) attacks, leading to session hijacking, credential theft, defacement, or redirection to malicious sites. Sensitive user data and application integrity may be at risk if the vulnerable component is left unpatched.
 
 - **Proposed Remediation:**  
-  Configure the web server to include the `Strict-Transport-Security` header in all HTTPS responses (e.g., `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`). Test thoroughly to ensure all resources are accessible via HTTPS before enabling HSTS, and consider submitting your site to the browser preload list for added protection.
+  Upgrade the Select2 library to the latest secure version (at least 4.0.5 or later) where this issue is resolved. Review the application for other outdated JavaScript dependencies and ensure all third-party components are maintained at current, supported versions. Regularly monitor sources such as the NVD or vendor advisories for security updates.
 
 ---
 
-Let me know if you want further customization or examples for other security headers!
+Let me know if you want more details, a reference link, or need report entries for other dependencies!
